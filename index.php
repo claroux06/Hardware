@@ -24,7 +24,7 @@ require_once "actions/cfg.php";
   <body>
 
         <h1 class='light-title'> Users management <a onclick="darkmode()"> <i class="material-icons right" id="icon_darkmode">bedtime</i></a></h1>
-        <h1 class='dark-title'> Que la Force soit avec Vous ! </h1>
+        <h1 class='dark-title'> Que la Force soit avec Vous ! <a onclick="darkmode()"> <i class="material-icons right" id="icon_darkmode">bedtime</i></a></h1>
     
         <!-- Add Users -->
 

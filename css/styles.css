@@ -11,16 +11,17 @@ body{
 }
 
 #icon_darkmode{
-    color: white!important;
+    color: rgb(16, 22, 42)!important;
+    cursor: pointer;
 
-}
-
-#icon_lightmode{
-    display: none;
 }
 
 .dark-title{
     display: none;
+    margin-top: 10px!important;
+    margin-bottom: 10px;
+    margin-left:10px;
+    font-family: 'Raleway'!important;
 }
 
 .light-title{
@@ -55,7 +56,7 @@ body{
 }
 
 .post{
-    background-color: rgb(126, 127, 150);
+    background-color: #7e7f96;
     border-radius: 5%;
     font-size: 50%;
 }
@@ -77,4 +78,13 @@ body{
     background-color: #afefef;
     color:#14263f;
     
+}
+
+.dark-button{
+    background-color: #c15252!important;
+    color: #ffffff!important;
+}
+
+.dark-card{
+    background-color: #b10202;
 }

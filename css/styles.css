@@ -88,3 +88,7 @@ body{
 .dark-card{
     background-color: #b10202;
 }
+
+label{
+    color: white;
+}

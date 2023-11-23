@@ -23,7 +23,7 @@ require_once "actions/cfg.php";
   </head>
   <body>
 
-        <h1 class='light-title'> Gestion Utilisateurs <a onclick="darkmode()"> <i class="material-icons right" id="icon_darkmode">bedtime</i></a></h1>
+        <h1 class='light-title'> Users management <a onclick="darkmode()"> <i class="material-icons right" id="icon_darkmode">bedtime</i></a></h1>
         <h1 class='dark-title'> Que la Force soit avec Vous ! </h1>
     
         <!-- Add Users -->
@@ -33,15 +33,15 @@ require_once "actions/cfg.php";
             <div class="row">
                 <div class="input-field col l4">
                     <div>
-                        <label for="UID">UID</label>
+                        <label for="UID" class='uid' >UID</label>
                         <input id="UID" name="UID">
                     </div>
                     <div>
-                        <label for="Access">Access</label>
+                        <label for="Access" class='access'>Access</label>
                         <input id="Access" name="Access">
                     </div>
                     <div class="input-field">
-                        <button class="btn modal-close" id='button'>Envoyer</button>
+                        <button class="btn modal-close" id='button'>Send</button>
                     </div>
                 </div>
             </div>
@@ -62,20 +62,26 @@ require_once "actions/cfg.php";
                 <div class="col m2">
                     <div class="card">
                         <div class="card-content white-text">
-                            <h6><?php echo $users['UID']; print(" ")?></h6>
+                            <h6 class='center'><?php echo $users['UID']; print(" ")?></h6>
                             <?php if ($users['Access']==0){?>
-                                <h6>access denied</h6>
+                                <h6 class='center'>access denied</h6>
                             <?php }else{?>
-                                <h6>access granted</h6>
+                                <h6 class='center'>access granted</h6>
                             <?php } ?>
-                            <form action="actions/switch_access.php" method="post">
-                                <input type="hidden" name="UID" value="<?php echo $users['UID'] ?>">
-                                <button type="submit" name="button">Switch</button>
-                            </form>
-                            <form action="actions/delete_user.php" method="post">
-                                <input type="hidden" name="ID" value="<?php echo $users['ID'] ?>">
-                                <button type="submit" name="button">Delete</button>
-                            </form>
+                            <div class='row'>
+                                <div class='col m6'>
+                                    <form action="actions/switch_access.php" method="post" class='change'>
+                                        <input type="hidden" name="UID" value="<?php echo $users['UID'] ?>">
+                                        <button type="submit" name="button" class='btn post'>Switch</button>
+                                    </form>
+                                </div>
+                                <div class='col m6'>
+                                    <form action="actions/delete_user.php" method="post" class='change'>
+                                        <input type="hidden" name="ID" value="<?php echo $users['ID'] ?>">
+                                        <button type="submit" name="button" class='btn post'>Delete</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

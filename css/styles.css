@@ -27,19 +27,48 @@ body{
     margin-top: 10px!important;
     margin-bottom: 10px;
     margin-left:10px;
+    font-family: 'Raleway'!important;
 }
 
 .user-title{
     margin-top: 0!important;
     margin-bottom: 10px!important;
     margin-left:10px;
+    font-family: 'Raleway';
 }
 
 .users{
     margin-left:10px!important;
+    font-family: 'Raleway';
 }
 
 .card{
     background-color: #14263f;
     border-radius: 10%;
+}
+
+.card-content{
+    padding: 15px!important;
+    padding-left:30px!important;
+    padding-right:30px!important;
+    padding-bottom: 10px!important;
+}
+
+.post{
+    background-color: rgb(126, 127, 150);
+    border-radius: 5%;
+    font-size: 50%;
+}
+
+.change{
+    padding-top: 10px;
+    margin-bottom: 0px;
+}
+
+.uid{
+    font-family: 'Raleway'!important;
+}
+
+.access{
+    font-family: 'Raleway'!important;
 }

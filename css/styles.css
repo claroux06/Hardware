@@ -1,0 +1,45 @@
+body{
+    background-image: url('../img/Ganyu.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color : white;
+}
+
+.dark-mode{
+    background-image: url('../img/DARTH-VADER.jpeg')
+
+}
+
+#icon_darkmode{
+    color: white!important;
+
+}
+
+#icon_lightmode{
+    display: none;
+}
+
+.dark-title{
+    display: none;
+}
+
+.light-title{
+    margin-top: 10px!important;
+    margin-bottom: 10px;
+    margin-left:10px;
+}
+
+.user-title{
+    margin-top: 0!important;
+    margin-bottom: 10px!important;
+    margin-left:10px;
+}
+
+.users{
+    margin-left:10px!important;
+}
+
+.card{
+    background-color: #14263f;
+    border-radius: 10%;
+}

@@ -43,9 +43,13 @@ body{
     font-family: 'Raleway';
 }
 
+.center{
+    font-size : 120%;
+}
+
 .card{
     background-color: #14263f;
-    border-radius: 10%;
+    border-radius: 30px 30px;
 }
 
 .card-content{
@@ -57,27 +61,29 @@ body{
 
 .post{
     background-color: #7e7f96;
-    border-radius: 5%;
-    font-size: 50%;
+    border-radius: 10%;
+    font-size: 80%;
 }
 
 .change{
     padding-top: 10px;
     margin-bottom: 0px;
+    padding-left: 20px;
 }
 
 .uid{
     font-family: 'Raleway'!important;
+    font-size: 110%;
 }
 
 .access{
     font-family: 'Raleway'!important;
+    font-size: 110%;
 }
 
 #button{
     background-color: #afefef;
     color:#14263f;
-    
 }
 
 .dark-button{
@@ -89,6 +95,7 @@ body{
     background-color: #b10202;
 }
 
-label{
+label {
     color: white;
+    font-weight: bold;
 }

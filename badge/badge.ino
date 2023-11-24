@@ -1,15 +1,18 @@
 #include "SPI.h"
 #include "MFRC522.h"
-#include <WiFi.h>
 #include <HTTPClient.h>
+#include <WiFi.h>
+#include "time.h"
 
+const char* ntpServer = "pool.ntp.org";
+const long  gmtOffset_sec = 3600;
+const int   daylightOffset_sec = 3600;
 
-const char* ssid = "Bbox-84DA2313";
-const char* password = "rHXcg6JS9s4cF33r7D";
+const char* ssid = "testse32";
+const char* password = "kkyp9695";
 
-
-String HOST_NAME = "192.168.1.12"; // Entrez l'adresse IP de l'appareil.
-String PATH_NAME = "../actions/users.php";
+String HOST_NAME = "http://192.168.156.53"; // Entrez l'adresse IP de l'appareil.
+String PATH_NAME = "/users.php";
 String queryString = "?uid=";
 
 
@@ -17,17 +20,24 @@ String queryString = "?uid=";
 #define SS_PIN 5 // Broche SDA (ou SS)
 
 
-int a = 1; // Variable globale représentant le nombre de personnes autorisées.
-int b = 1; // Variable globale représentant le nombre de personnes refusées.
-
-
 byte readCard[4];
 String tagID = ""; // Tableau contenant les ID refusés.
 MFRC522 mfrc522(SS_PIN, RST_PIN);
 
 
+void printLocalTime()
+{
+  struct tm timeinfo;
+  if(!getLocalTime(&timeinfo)){
+    Serial.println("Failed to obtain time");
+    return;
+  }
+  Serial.println(&timeinfo, "%A, %B %d %Y %H:%M:%S");
+}
+
+
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   
   SPI.begin();
   mfrc522.PCD_Init();
@@ -48,31 +58,31 @@ void setup() {
   Serial.println("");
   Serial.print("Connected to WiFi network with IP Address: ");
   Serial.println(WiFi.localIP());
+
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  printLocalTime();
+
 }
 
-
 // Fonction pour gérer l'allumage des LEDs en fonction de la réponse du serveur
-void LED(String response) {
-  if (response == "Access granted") {
+void LED(int response) {
+  if (response == 1) {
     Serial.println("Accès autorisé.");
     digitalWrite(1, HIGH);
     delay(2000);
     digitalWrite(1, LOW);
   }
-  else if (response == "Access denied") {
+  else if (response == 0) {
     Serial.println("Accès refusé.");
     digitalWrite(6, HIGH);
     delay(2000);
     digitalWrite(6, LOW);
   }
-  else if (response == "User unidentified") {
+  else if (response == 2) {
     Serial.println("Utilisateur non identifié.");
     digitalWrite(3, HIGH);
     delay(2000);
     digitalWrite(3, LOW);
-  }
-  else {
-    Serial.println("Réponse inattendue du serveur : " + response);
   }
 }
 
@@ -93,28 +103,33 @@ boolean getID() {
   return true;
 }
 
-
 void loop() {
   HTTPClient http;
 
   while (getID()) {
-    queryString = queryString + tagID;
+    queryString = "?uid=" + tagID;  // Reset queryString and append the new tagID
+
+    Serial.print("Tag ID: ");
+    Serial.println(tagID);
 
     http.begin(HOST_NAME + PATH_NAME + queryString);
     int httpCode = http.GET();
-    Serial.println(HOST_NAME + PATH_NAME + queryString);
-
-    Serial.print("HTTP code: ");
-    Serial.println(httpCode);
+    Serial.println("HTTP Code: " + String(httpCode));
+    Serial.println("URL: " + HOST_NAME + PATH_NAME + queryString);
 
     if (httpCode == HTTP_CODE_OK) {
       String payload = http.getString();
-      LED(payload);
+      Serial.println("Server Response: " + payload);
+    // Convertir la réponse en un entier
+    int responseInt = payload.toInt();
+    // Appeler la fonction LED avec la réponse convertie
+    LED(responseInt);
     }
     else {
       Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
     }
     http.end();
   }
-  queryString = "?uid=";
 }
+
+
